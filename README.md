@@ -2,4 +2,4 @@
 
 ## Summary
 
-Some reusable python module that r too small to be standalone project.
+Some reusable python module that r too small to be a standalone project.
