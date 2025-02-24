@@ -1,6 +1,6 @@
 from base64 import b64decode
 
-from base64image_validator._validator_function import (
+from base64image_decoder._validator_function import (
     is_jpg,
     is_png,
 )

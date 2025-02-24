@@ -2,8 +2,8 @@ from base64 import b64decode
 
 import pytest
 
-from base64image_validator._validator import (
-    Base64ImageValidator,
+from base64image_decoder._decoder import (
+    Base64ImageDecoder,
     ImageBytes,
 )
 
@@ -25,9 +25,9 @@ class MockValidatorFunction:
 class TestBase64ImageValidator:
     def test_givenBase64str_decodeAndValidateWithValidator(self) -> None:
         MOCK_VALIDATOR_FUNCTION = MockValidatorFunction(is_valid=True)
-        validator = Base64ImageValidator((MOCK_VALIDATOR_FUNCTION,))
+        decoder = Base64ImageDecoder((MOCK_VALIDATOR_FUNCTION,))
 
-        image_bytes = validator.validate(BASE64_JPG)
+        image_bytes = decoder.decode(BASE64_JPG)
 
         assert (
             image_bytes
@@ -36,13 +36,13 @@ class TestBase64ImageValidator:
         )
 
     def test_invalidBase64String_raiseValueError(self) -> None:
-        validator = Base64ImageValidator([])
+        decoder = Base64ImageDecoder([])
 
         with pytest.raises(ValueError):
-            validator.validate("a")
+            decoder.decode("a")
 
     def test_invalidImage_raiseValueError(self) -> None:
-        validator = Base64ImageValidator((MockValidatorFunction(is_valid=False),))
+        decoder = Base64ImageDecoder((MockValidatorFunction(is_valid=False),))
 
         with pytest.raises(ValueError):
-            validator.validate("dGVzdA==")
+            decoder.decode("dGVzdA==")

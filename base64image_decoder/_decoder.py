@@ -1,4 +1,4 @@
-__all__ = ["Base64ImageValidator"]
+__all__ = ["Base64ImageDecoder"]
 
 from base64 import b64decode
 from collections.abc import Iterable
@@ -8,13 +8,13 @@ ImageBytes = bytes
 ValidatorFunction = Callable[[ImageBytes], bool]
 
 
-class Base64ImageValidator:
+class Base64ImageDecoder:
     _validator_functions: Iterable[ValidatorFunction]
 
     def __init__(self, validator_functions: Iterable[ValidatorFunction]) -> None:
         self._validator_functions = validator_functions
 
-    def validate(self, base64image: str) -> ImageBytes:
+    def decode(self, base64image: str) -> ImageBytes:
         try:
             image_bytes = b64decode(base64image)
         except Exception as e:
